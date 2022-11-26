@@ -1,1 +1,1 @@
-Creacion Repositorio GitHub Proyecto Ciclo 4 MinTic rama sebastian
+Creacion Repositorio GitHub Proyecto Ciclo 4 MinTic rama Sebastian
