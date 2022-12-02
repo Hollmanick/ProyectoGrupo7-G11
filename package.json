@@ -1,0 +1,29 @@
+{
+  "name": "proyectogrupo7-g11",
+  "version": "1.0.0",
+  "description": "Esta es la AIPI del Proyecto Ciclo 4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hollmanick/ProyectoGrupo7-G11.git"
+  },
+  "keywords": [
+    "api",
+    "back"
+  ],
+  "author": "Holman Nikolas Naranjo Valladarez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hollmanick/ProyectoGrupo7-G11/issues"
+  },
+  "homepage": "https://github.com/Hollmanick/ProyectoGrupo7-G11#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
+    "validator": "^13.7.0"
+  }
+}
