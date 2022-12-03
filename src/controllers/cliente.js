@@ -1,4 +1,4 @@
-const {Cliente} = require('../models/cliente.js')
+const { Cliente } = require('../models/cliente.js')
 const { matchedData } = require('express-validator');
 
 /**
@@ -7,9 +7,17 @@ const { matchedData } = require('express-validator');
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
 const getClientes = async (req,res) => {
-    res.status(200).json({
-        "code_response": 200
-    })
+    try {
+        // Obtener todos los documentos existentes dentro de la coleccion cliente
+        const clientes = await Cliente.find({}).lean();
+        res.status(200).json({
+            "code_response": 200,
+            "res": clientes
+        }) 
+    } catch (error) {
+        console.log(error.message)
+        res.json({"res_description":error.message})
+    }
 }
 
 /**
