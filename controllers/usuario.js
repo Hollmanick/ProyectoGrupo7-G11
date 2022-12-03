@@ -1,4 +1,5 @@
 var validator = require("validator");
+var Usuario = require("../models/Usuarios");
 
 var controller = {
     probando: function(req,res){
@@ -23,9 +24,32 @@ var controller = {
         console.log(validate_surname);
         console.log(validate_email);
         console.log(validate_password);
-        return res.status(200).send({
-            message:"Usuario Guardado"
-        });
+        if(validate_name && validate_surname && validate_email && validate_password){
+            var usuario = new Usuario();
+            usuario.name = params.name;
+            usuario.surname = params.surname;
+            usuario.email = params.email;
+            usuario.password = params.password;
+            usuario.image = null;
+            usuario.role = "Rol de usuario";
+            console.log(usuario);
+            usuario.save((err, userStored) => {
+                if(err || !userStored){
+                    return res.status(404).send({
+                        message:"El usuario no se guardo",
+                        status:"error"
+                    });
+                }
+                return res.status(200).send({
+                    message:"Usuario Guardado"
+                });
+            }); 
+
+        }else{
+            return res.status(200).send({
+                message:"Validacion de datos incorrecta"
+            });
+        }       
     },
 
     login: function(req,res){
