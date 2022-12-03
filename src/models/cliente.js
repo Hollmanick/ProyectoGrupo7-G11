@@ -11,7 +11,8 @@ const clienteSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        index: {unique: true}
+        index: {unique: true},
+        select: false
     },
     nombre:{
         type: String,
