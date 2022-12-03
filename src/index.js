@@ -12,7 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 // rutas
-// app.use('/api',require('./routes/autos.js'));
+// app.use('/api/autos',require('./routes/autos.js'));
+app.use('/api/clientes',require('./routes/cliente.js'));
+
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en: http://localhost:${port} 🚀`);

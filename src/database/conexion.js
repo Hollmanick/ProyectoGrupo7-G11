@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 /**
- * Function to connect to the database mongoDB
+ * Funcion para conectar a la base de datos mongoDB
  */
 const dbConnection = () => {
     const dbUrl = process.env.DB_URI;
