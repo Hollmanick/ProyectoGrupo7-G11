@@ -5,16 +5,16 @@ const app = express();
 // dotenv permite usar variables de entorno .env para mantener a salvo datos sensibles
 require('dotenv').config();
 const port = process.env.PORT || 3000;
-// const { dbConnection } = require('./config/mongo');
+const { dbConnection } = require('./database/conexion.js');
 
 // middlewares
 app.use(cors());
 app.use(express.json());
 
 // rutas
-// app.use('/api',require('./routes'));
+// app.use('/api',require('./routes/autos.js'));
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en: http://localhost:${port} 🚀`);
 })
-// dbConnection();
+dbConnection();
