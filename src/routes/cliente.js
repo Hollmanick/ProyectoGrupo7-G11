@@ -1,10 +1,12 @@
 const {Router} = require('express');
-const {getClientes} =require('../controllers/cliente.js')
+const {getClientes,postCliente} = require('../controllers/cliente.js')
+const {validarBodyCliente} = require('../validators/cliente.js')
 const router = Router();
 
 router
   .get('/',getClientes)
-  .post('',)
+  .get('/:id',)
+  .post('/',validarBodyCliente,postCliente)
   .put('/',)
   .delete('/',)
 
