@@ -8,9 +8,9 @@ router.post("/testeando", UserController.testeando);
 
 router.post("/guardarUsuario", UserController.save);
 router.post("/login", UserController.login);
-router.put("/actualizarUsuario", UserController.update);
-router.delete("/eliminarUsuario", UserController.delete);
+router.put("/actualizarUsuario/:id", UserController.update);
+router.delete("/eliminarUsuario/:id", UserController.delete);
 router.get("/usuarios", UserController.listarUsuarios);
-router.get("/usuario", UserController.mostrarUsuario);
+router.get("/usuario/:id", UserController.mostrarUsuario);
 
 module.exports = router;
