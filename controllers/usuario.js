@@ -75,7 +75,7 @@ var controller = {
                 email: params.email,
                 password: params.password
             }
-            Usuario.findOneAndUpdate({ usuarioId }, update, { new: true }, (err, userUpdate) => {
+            Usuario.findOneAndUpdate({ _id:usuarioId }, update, { new: true }, (err, userUpdate) => {
                 if (err) {
                     return res.status(500).send({
                         message: "Error en la peticion",
@@ -106,7 +106,7 @@ var controller = {
 
     delete: function (req, res) {
         var usuarioId = req.params.id;
-        Usuario.findOneAndDelete({ _Id: usuarioId }, (err, userRemoved) => {
+        Usuario.findOneAndDelete({ _id:usuarioId }, (err, userRemoved) => {
             if (err) {
                 return res.status(500).send({
                     message: "Error en la peticion",
