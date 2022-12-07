@@ -1,18 +1,18 @@
-const { Cliente } = require('../models/cliente.js')
+const { Alquiler } = require('../models/alquiler.js')
 const { matchedData } = require('express-validator');
 
 /**
- * Listar todos los clientes de la base de datos
+ * Listar todos los alquileres de la base de datos
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getClientes = async (req,res) => {
+const getAlquileres = async (req,res) => {
     try {
-        // Obtener todos los documentos existentes dentro de la coleccion cliente
-        const clientes = await Cliente.find({}).lean();
+        // Obtener todos los documentos existentes dentro de la coleccion alquiler
+        const alquileres = await Alquiler.find({}).lean();
         res.status(200).json({
             "code_response": 200,
-            "res": clientes
+            "res": alquileres
         }) 
     } catch (error) {
         console.log(error.message)
@@ -21,19 +21,19 @@ const getClientes = async (req,res) => {
 }
 
 /**
- * Crear un nuevo documento del Schema Cliente
+ * Crear un nuevo documento del Schema Alquiler
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
- const postCliente = async (req,res) => {
+ const postAlquiler = async (req,res) => {
     try {
         const body  = matchedData(req);
         console.log("req.body", body);
-        const newCliente = await Cliente.create(body);
-        console.log(newCliente);
+        const newAlquiler = await Alquiler.create(body);
+        console.log(newAlquiler);
         res.status(200).json({
             "code_response": 200,
-            "res_description": "Documento Cliente creado"
+            "res_description": "Documento Alquiler creado"
         })
     } catch (error) {
         console.log(error.message)
@@ -43,6 +43,6 @@ const getClientes = async (req,res) => {
 }
 
 module.exports = {
-    getClientes,
-    postCliente
+    getAlquileres,
+    postAlquiler
 }

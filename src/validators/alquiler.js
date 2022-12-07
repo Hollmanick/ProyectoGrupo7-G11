@@ -1,6 +1,6 @@
 const {check,validationResult} = require('express-validator');
 
-const validarBodyCliente = [
+const validarBodyAlquiler = [
   check('email').exists().notEmpty().isString().isEmail(),
   check('contrasena').exists().notEmpty().isLength({min:8, max:50}),
   check('nombre').exists().notEmpty().isLength({min:3, max:50}),
@@ -13,4 +13,4 @@ const validarBodyCliente = [
   }
 ]
 
-module.exports = {validarBodyCliente};
+module.exports = {validarBodyAlquiler};

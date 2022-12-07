@@ -12,8 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // rutas
-// app.use('/api/autos',require('./routes/autos.js'));
-app.use('/api/clientes',require('./routes/cliente.js'));
+app.use('/api/alquileres',require('./routes/alquiler.js'));
 
 
 app.listen(port, () => {
