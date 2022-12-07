@@ -2,32 +2,30 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 const alquilerSchema = new Schema({
-    email:{
-        type: String,
+    fechaEntrega:{
+        type: Date,
         required: true,
         unique: true
     },
-    contrasena:{
-        type: String,
+    fechaDevolucion:{
+        type: Date,
         required: true,
-        unique: true,
-        index: {unique: true},
-        select: false
+        unique: true        
     },
-    nombre:{
+    status:{
         type: String,
         required: true
     },
-    edad:{
-        type: Number,
-        default: null
-    }
-    // mensajes:{
+    // auto_id:{
+    //     type: Number,
+    //     default: null
+    // }
+    // cliente_id:{
     //     type: Schema.Types.ObjectId,
     //     ref: 'Mensajes',
     //     default: false
     // },
-    // alquiler:{
+    // reporte_id:{
     //     type: Schema.Types.ObjectId,
     //     ref: 'Alquiler',
     //     default: null
