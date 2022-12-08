@@ -18,4 +18,5 @@ app.use('/api/alquileres',require('./routes/alquiler.js'));
 app.listen(port, () => {
     console.log(`Servidor corriendo en: http://localhost:${port} 🚀`);
 })
+
 dbConnection();

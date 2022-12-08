@@ -3,14 +3,12 @@ const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
 const alquilerSchema = new Schema({
     fechaEntrega:{
-        type: Date,
-        required: true,
-        unique: true
+        type: String,       
+        required: true
     },
     fechaDevolucion:{
-        type: Date,
-        required: true,
-        unique: true        
+        type: String,        
+        required: true        
     },
     status:{
         type: String,
