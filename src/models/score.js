@@ -12,7 +12,7 @@ const scoreSchema = new Schema({
     },
     alquiler:{
         type: Schema.Types.ObjectId,
-        ref: 'Alquiler',
+        ref: 'alquiler',
         default: null
     }
 })
