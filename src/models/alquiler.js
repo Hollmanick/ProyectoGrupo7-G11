@@ -16,20 +16,18 @@ const alquilerSchema = new Schema({
         type: String,
         required: true
     },
-    // auto_id:{
-    //     type: Number,
-    //     default: null
-    // }
-    // cliente_id:{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Mensajes',
-    //     default: false
-    // },
-    // reporte_id:{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Alquiler',
-    //     default: null
-    // }
+    auto: {
+        type: Schema.ObjectId,
+        ref:"Auto"
+    },
+    cliente: {
+        type: Schema.ObjectId,
+        ref:"Cliente"
+    },
+    score: {
+        type: Schema.ObjectId,
+        ref:"Score"
+    }   
 })
 
 /**

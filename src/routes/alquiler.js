@@ -1,13 +1,13 @@
 const {Router} = require('express');
-const {getAlquilers,postAlquiler} = require('../controllers/alquiler.js')
+const {getAlquileres,postAlquiler} = require('../controllers/alquiler.js')
 const {validarBodyAlquiler} = require('../validators/alquiler.js')
 const router = Router();
 
 router
-  .get('/',getAlquilers)
+  .get('/',getAlquileres)
   .get('/:id',)
-  .post('/',validarBodyAlquiler,postAlquiler)
-  .put('/',)
-  .delete('/',)
+  .post('/guardarAlquiler',validarBodyAlquiler,postAlquiler)
+  .put('/actualizarAlquiler/:id',)
+  .delete('eliminarAlquiler/:id',)
 
 module.exports = router;

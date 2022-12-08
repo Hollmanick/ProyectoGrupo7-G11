@@ -1,22 +1,20 @@
 {
   "name": "proyectogrupo7-g11",
   "version": "1.0.0",
-  "description": "proyecto app web de alquiler de autos",
+  "description": "Esta es la AIPI del Proyecto Ciclo 4",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hollmanick/ProyectoGrupo7-G11.git"
   },
   "keywords": [
-    "appWeb",
-    "alquiler",
-    "autos"
+    "api",
+    "back"
   ],
-  "author": "",
+  "author": "Holman Nikolas Naranjo Valladarez",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Hollmanick/ProyectoGrupo7-G11/issues"
@@ -24,13 +22,13 @@
   "homepage": "https://github.com/Hollmanick/ProyectoGrupo7-G11#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.14.2",
-    "mongoose": "^6.7.5"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
+    "mongoose": "^6.7.5",
+    "nodemon": "^2.0.20",
+    "validator": "^13.7.0"
   }
 }

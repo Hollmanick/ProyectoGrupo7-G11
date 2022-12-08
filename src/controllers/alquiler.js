@@ -38,8 +38,7 @@ const getAlquileres = async (req,res) => {
     } catch (error) {
         console.log(error.message)
         res.json({"res_description":error.message})
-    }
-    
+    }    
 }
 
 module.exports = {
