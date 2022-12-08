@@ -6,8 +6,8 @@ const router = Router();
 router
   .get('/',getAlquileres)
   .get('/:id',)
-  .post('/guardarAlquiler',validarBodyAlquiler,postAlquiler)
-  .put('/actualizarAlquiler/:id',)
-  .delete('eliminarAlquiler/:id',)
+  .post('/',validarBodyAlquiler,postAlquiler)
+  .put('/:id',)
+  .delete('/:id',)
 
 module.exports = router;

@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 // dotenv permite usar variables de entorno .env para mantener a salvo datos sensibles
-require('dotenv').config();
+require("dotenv").config();
 const port = process.env.PORT || 3000;
 const { dbConnection } = require('./database/conexion.js');
 
