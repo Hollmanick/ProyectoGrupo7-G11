@@ -1,0 +1,37 @@
+{
+  "name": "proyectogrupo7-g11",
+  "version": "1.0.0",
+  "description": "proyecto app web de alquiler de autos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hollmanick/ProyectoGrupo7-G11.git"
+  },
+  "keywords": [
+    "appWeb",
+    "alquiler",
+    "autos"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hollmanick/ProyectoGrupo7-G11/issues"
+  },
+  "homepage": "https://github.com/Hollmanick/ProyectoGrupo7-G11#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "mongoose": "^6.7.5",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
