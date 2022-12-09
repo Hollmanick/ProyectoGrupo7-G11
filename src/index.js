@@ -12,10 +12,12 @@ app.use(cors());
 app.use(express.json());
 
 // rutas
-// app.use('/api/autos',require('./routes/autos.js'));
-// app.use('/api/clientes',require('./routes/cliente.js'));
-app.use('/api/alquileres',require('./routes/alquiler.js'));
-
+app.use('/api/alquileres', require('./routes/alquiler.js'));
+// app.use('/api/autos', require('./routes/auto.js'));
+// app.use('/api/categorias', require('./routes/categoria.js'));
+// app.use('/api/clientes', require('./routes/cliente.js'));
+// app.use('/api/mensajes', require('./routes/mensaje.js'));
+// app.use('/api/scores', require('./routes/score.js'));
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en: http://localhost:${port} 🚀`);

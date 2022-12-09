@@ -14,7 +14,11 @@
   "keywords": [
     "appWeb",
     "alquiler",
-    "autos"
+    "auto",
+    "categoria",
+    "cliente",
+    "mensaje",
+    "score"
   ],
   "author": "",
   "license": "ISC",
