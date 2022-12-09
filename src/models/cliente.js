@@ -1,37 +1,35 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const clienteSchema = new Schema({
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    contrasena:{
+    contrasena: {
         type: String,
         required: true,
         unique: true,
-        index: {unique: true},
+        index: { unique: true },
         select: false
     },
-    nombre:{
+    nombre: {
         type: String,
         required: true
     },
-    edad:{
+    edad: {
         type: Number,
         default: null
+    },
+    mensaje: {
+        type: Schema.ObjectId,
+        ref: "Mensaje"
+    },
+    alquiler: {
+        type: Schema.ObjectId,
+        ref: "Alquiler"
     }
-    // mensajes:{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Mensajes',
-    //     default: false
-    // },
-    // alquiler:{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Alquiler',
-    //     default: null
-    // }
 })
 
 /**
@@ -39,16 +37,16 @@ const clienteSchema = new Schema({
  * @param {String} password - Contraseña a comparar
  * @returns {Promise}
  */
-clienteSchema.methods.comparePassword = async function(password) {
+clienteSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.contrasena);
 }
 
 /**
  * Metodo sincrono ejecutado antes de guardar una contrasena en la base de datos para hashear
  */
-clienteSchema.pre('save', async function(next) {
+clienteSchema.pre("save", async function (next) {
     const cliente = this
-    if (!cliente.isModified('contrasena')) return next();
+    if (!cliente.isModified("contrasena")) return next();
     try {
         // instancia de bcrypt para definir el salt que se usara para hashear la contraseña
         const salt = await bcrypt.genSaltSync(10);
@@ -64,5 +62,5 @@ clienteSchema.pre('save', async function(next) {
 })
 
 // Definir el nombre del modelo y exportarlo usando module.exports
-const Cliente = mongoose.model('Cliente', clienteSchema);
-module.exports = {Cliente};
+const Cliente = mongoose.model("Cliente", clienteSchema);
+module.exports = { Cliente };
