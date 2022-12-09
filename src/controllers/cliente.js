@@ -41,7 +41,6 @@ const getCliente = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -81,7 +80,6 @@ const getMensajesCliente = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -102,26 +100,25 @@ const getAlquilerCliente = async (req, res) => {
                 },
                 {   // segunda etapa
                     $lookup: {
-                        from: "Alquiler", // nombre del schema o coleccion foranea
+                        from: "Cliente", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
                         foreingField: "cliente_id", // clave del documento foraneo
-                        as: "alquilerCliente" // nombre del campo a agregar
+                        as: "clienteCliente" // nombre del campo a agregar
                     }
                 }
             ]
         )
-        console.log("getAlquilerCliente documento", documento)
+        console.log("getClienteCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `Documento id: ${id} con sus alquiler`,
+            "res_description": `Documento id: ${id} con sus cliente`,
             "data": documento
         })
     } catch (error) {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -143,7 +140,6 @@ const postCliente = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -155,7 +151,9 @@ const putCliente = async (req, res) => {
     try {
         const data = matchedData(req);
         console.log("req", data.params, data.body);
-        const documento = await Cliente.findByIdAndUpdate(Id, body)
+        const { id } = req.params;
+        console.log("req.params", id);
+        const documento = await Cliente.findByIdAndUpdate(id, data, { new: true });
         console.log("putCliente documento", documento)
         res.status(200).json({
             "code_response": 200,
@@ -166,7 +164,6 @@ const putCliente = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -190,7 +187,6 @@ const deleteCliente = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 module.exports = {

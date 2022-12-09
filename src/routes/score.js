@@ -1,13 +1,15 @@
 const { Router } = require("express");
-const { getScores, postScore } = require("../controllers/score.js")
+const { getScores, postScore, getScore, putScore, getMensajesCliente, getAlquilerCliente, deleteScore } = require("../controllers/score.js")
 const { validarBodyScore } = require("../validators/score.js")
 const router = Router();
 
 router
     .get("/", getScores)
-    .get("/:id",)
+    .get("/:id", getScore)
+    .get("/mensajes/:id", getMensajesCliente)
+    .get("/alquiler/:id", getAlquilerCliente)
     .post("/", validarBodyScore, postScore)
-    .put("/:id",)
-    .delete("/:id",)
+    .put("/:id", validarBodyScore, putScore)
+    .delete("/:id", deleteScore)
 
 module.exports = router;

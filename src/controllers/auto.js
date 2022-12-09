@@ -41,7 +41,6 @@ const getAuto = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -49,7 +48,7 @@ const getAuto = async (req, res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getMensajesAuto = async (req, res) => {
+const getMensajesCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
@@ -70,7 +69,7 @@ const getMensajesAuto = async (req, res) => {
                 }
             ]
         )
-        console.log("getMensajesAuto documento", documento)
+        console.log("getMensajesCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
@@ -81,7 +80,6 @@ const getMensajesAuto = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -89,7 +87,7 @@ const getMensajesAuto = async (req, res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getAlquilerAuto = async (req, res) => {
+const getAlquilerCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
@@ -102,26 +100,25 @@ const getAlquilerAuto = async (req, res) => {
                 },
                 {   // segunda etapa
                     $lookup: {
-                        from: "Alquiler", // nombre del schema o coleccion foranea
+                        from: "Auto", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
                         foreingField: "auto_id", // clave del documento foraneo
-                        as: "alquilerAuto" // nombre del campo a agregar
+                        as: "autoAuto" // nombre del campo a agregar
                     }
                 }
             ]
         )
-        console.log("getAlquilerAuto documento", documento)
+        console.log("getAutoCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `Documento id: ${id} con sus alquiler`,
+            "res_description": `Documento id: ${id} con sus auto`,
             "data": documento
         })
     } catch (error) {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -143,7 +140,6 @@ const postAuto = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -155,7 +151,9 @@ const putAuto = async (req, res) => {
     try {
         const data = matchedData(req);
         console.log("req", data.params, data.body);
-        const documento = await Auto.findByIdAndUpdate(Id, body)
+        const { id } = req.params;
+        console.log("req.params", id);
+        const documento = await Auto.findByIdAndUpdate(id, data, { new: true });
         console.log("putAuto documento", documento)
         res.status(200).json({
             "code_response": 200,
@@ -166,7 +164,6 @@ const putAuto = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -190,14 +187,13 @@ const deleteAuto = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 module.exports = {
     getAutos,
     getAuto,
-    getMensajesAuto,
-    getAlquilerAuto,
+    getMensajesCliente,
+    getAlquilerCliente,
     postAuto,
     putAuto,
     deleteAuto

@@ -41,7 +41,6 @@ const getScore = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -49,7 +48,7 @@ const getScore = async (req, res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getMensajesScore = async (req, res) => {
+const getMensajesCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
@@ -70,7 +69,7 @@ const getMensajesScore = async (req, res) => {
                 }
             ]
         )
-        console.log("getMensajesScore documento", documento)
+        console.log("getMensajesCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
@@ -81,7 +80,6 @@ const getMensajesScore = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -89,7 +87,7 @@ const getMensajesScore = async (req, res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getAlquilerScore = async (req, res) => {
+const getAlquilerCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
@@ -102,26 +100,25 @@ const getAlquilerScore = async (req, res) => {
                 },
                 {   // segunda etapa
                     $lookup: {
-                        from: "Alquiler", // nombre del schema o coleccion foranea
+                        from: "Score", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
                         foreingField: "score_id", // clave del documento foraneo
-                        as: "alquilerScore" // nombre del campo a agregar
+                        as: "scoreScore" // nombre del campo a agregar
                     }
                 }
             ]
         )
-        console.log("getAlquilerScore documento", documento)
+        console.log("getScoreCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `Documento id: ${id} con sus alquiler`,
+            "res_description": `Documento id: ${id} con sus score`,
             "data": documento
         })
     } catch (error) {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -143,7 +140,6 @@ const postScore = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -155,7 +151,9 @@ const putScore = async (req, res) => {
     try {
         const data = matchedData(req);
         console.log("req", data.params, data.body);
-        const documento = await Score.findByIdAndUpdate(Id, body)
+        const { id } = req.params;
+        console.log("req.params", id);
+        const documento = await Score.findByIdAndUpdate(id, data, { new: true });
         console.log("putScore documento", documento)
         res.status(200).json({
             "code_response": 200,
@@ -166,7 +164,6 @@ const putScore = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -190,14 +187,13 @@ const deleteScore = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 module.exports = {
     getScores,
     getScore,
-    getMensajesScore,
-    getAlquilerScore,
+    getMensajesCliente,
+    getAlquilerCliente,
     postScore,
     putScore,
     deleteScore

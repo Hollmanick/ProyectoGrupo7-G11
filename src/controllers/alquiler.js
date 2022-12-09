@@ -41,7 +41,6 @@ const getAlquiler = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -49,7 +48,7 @@ const getAlquiler = async (req, res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getMensajesAlquiler = async (req, res) => {
+const getMensajesCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
@@ -70,7 +69,7 @@ const getMensajesAlquiler = async (req, res) => {
                 }
             ]
         )
-        console.log("getMensajesAlquiler documento", documento)
+        console.log("getMensajesCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
@@ -81,7 +80,6 @@ const getMensajesAlquiler = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -89,7 +87,7 @@ const getMensajesAlquiler = async (req, res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getAlquilerAlquiler = async (req, res) => {
+const getAlquilerCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
@@ -110,7 +108,7 @@ const getAlquilerAlquiler = async (req, res) => {
                 }
             ]
         )
-        console.log("getAlquilerAlquiler documento", documento)
+        console.log("getAlquilerCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
@@ -121,7 +119,6 @@ const getAlquilerAlquiler = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -143,7 +140,6 @@ const postAlquiler = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -155,7 +151,9 @@ const putAlquiler = async (req, res) => {
     try {
         const data = matchedData(req);
         console.log("req", data.params, data.body);
-        const documento = await Alquiler.findByIdAndUpdate(Id, body)
+        const { id } = req.params;
+        console.log("req.params", id);
+        const documento = await Alquiler.findByIdAndUpdate(id, data, { new: true });
         console.log("putAlquiler documento", documento)
         res.status(200).json({
             "code_response": 200,
@@ -166,7 +164,6 @@ const putAlquiler = async (req, res) => {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
     }
-
 }
 
 /**
@@ -190,14 +187,13 @@ const deleteAlquiler = async (req, res) => {
         console.log(error.message)
         res.status(200).json({ "res_description": error.message })
     }
-
 }
 
 module.exports = {
     getAlquileres,
     getAlquiler,
-    getMensajesAlquiler,
-    getAlquilerAlquiler,
+    getMensajesCliente,
+    getAlquilerCliente,
     postAlquiler,
     putAlquiler,
     deleteAlquiler
