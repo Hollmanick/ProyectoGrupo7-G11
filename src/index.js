@@ -13,8 +13,8 @@ app.use(express.json());
 
 // rutas
 // app.use('/api/autos',require('./routes/autos.js'));
-app.use('/api/clientes',require('./routes/cliente.js'));
-app.use('/api/scores',require('./routes/score.js'));
+//app.use('/api/clientes',require('./routes/cliente.js'));
+app.use('/api/score',require('./routes/score.js'));
 
 
 app.listen(port, () => {

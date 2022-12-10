@@ -15,7 +15,35 @@ const scoreSchema = new Schema({
         ref: 'alquiler',
         default: null
     }
-})
+});
+
+const alquilerSchema = new Schema({
+    fechaEntrega: {
+        type: String,
+        required: true
+    },
+    fechaDevolucion: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true
+    },
+    auto: {
+        type: Schema.ObjectId,
+        ref: "Auto"
+    },
+    cliente: {
+        type: Schema.ObjectId,
+        ref: "Cliente"
+    },
+    score: {
+        type: Schema.ObjectId,
+        ref: "score"
+    },
+    score:[scoreSchema]
+});
 
 /**
  * Metodo sincrono para comparar contraseña enviada en peticion y la guardada en la db
