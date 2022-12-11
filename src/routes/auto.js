@@ -6,7 +6,6 @@ const router = Router();
 router
     .get("/", getAutos)
     .get("/:id", getAuto)
-    .get("/mensajes/:id", getMensajesCliente)
     .get("/alquiler/:id", getAlquilerCliente)
     .post("/", validarBodyAuto, postAuto)
     .put("/:id", validarBodyAuto, putAuto)

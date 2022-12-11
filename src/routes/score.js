@@ -6,7 +6,6 @@ const router = Router();
 router
     .get("/", getScores)
     .get("/:id", getScore)
-    .get("/mensajes/:id", getMensajesCliente)
     .get("/alquiler/:id", getAlquilerCliente)
     .post("/", validarBodyScore, postScore)
     .put("/:id", validarBodyScore, putScore)
