@@ -57,7 +57,7 @@ const getMensajesCliente = async (req,res) => {
             [
                 // {   // primera etapa
                 //     $match: {
-                //         "_id": id // donde el campo id coincida
+                //         _id: id // donde el campo id coincida
                 //     } 
                 // },
                 {   // segunda etapa
@@ -155,7 +155,7 @@ const getAlquilerCliente = async (req,res) => {
     try {
         const data  = matchedData(req);
         console.log("req", data.params, data.body);
-        const documento = await Cliente.findByIdAndUpdate(Id,body)
+        const documento = await Cliente.findByIdAndUpdate(Id,data)
         console.log("putCliente documento",documento)
         res.status(200).json({
             "code_response": 200,
