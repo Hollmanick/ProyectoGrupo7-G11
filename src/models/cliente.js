@@ -23,11 +23,11 @@ const clienteSchema = new Schema({
         default: null
     },
     mensaje: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Mensaje"
     },
     alquiler: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Alquiler"
     }
 })

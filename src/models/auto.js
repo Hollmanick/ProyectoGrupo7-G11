@@ -10,7 +10,7 @@ const autoSchema = new Schema({
         type: String,
         required: true
     },
-    ano: {
+    año: {
         type: Number,
         required: true
     },
@@ -19,15 +19,15 @@ const autoSchema = new Schema({
         required: true
     },
     categoria: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Categoria"
     },
     mensaje: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Mensaje"
     },
     alquiler: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Alquiler"
     }
 })

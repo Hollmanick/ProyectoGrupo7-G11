@@ -1,4 +1,4 @@
-const { Auto } = require("../models/auto.js")
+const { Auto } = require("../models/Auto.js")
 const { matchedData } = require("express-validator");
 
 /**
@@ -14,7 +14,7 @@ const getAutos = async (req, res) => {
             "code_response": 200,
             "res_description": "documentos existentes dentro de la coleccion auto",
             "data": autos
-        })
+        }).populate("Auto");
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
@@ -36,7 +36,7 @@ const getAuto = async (req, res) => {
             "code_response": 200,
             "res_description": `auto para id: ${id}`,
             "data": auto
-        })
+        }).populate("Auto");
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })

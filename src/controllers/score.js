@@ -1,4 +1,4 @@
-const { Score } = require("../models/score.js")
+const { Score } = require("../models/Score.js")
 const { matchedData } = require("express-validator");
 
 /**

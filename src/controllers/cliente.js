@@ -1,4 +1,4 @@
-const { Cliente } = require("../models/cliente.js")
+const { Cliente } = require("../models/Cliente.js")
 const { matchedData } = require("express-validator");
 
 /**

@@ -1,4 +1,4 @@
-const { Alquiler } = require("../models/alquiler.js")
+const { Alquiler } = require("../models/Alquiler.js");
 const { matchedData } = require("express-validator");
 
 /**

@@ -3,7 +3,7 @@ const { check, validationResult } = require("express-validator");
 const validarBodyAuto = [
     check("nombre").exists().notEmpty().isLength({ min: 3, max: 50 }),
     check("marca").exists().notEmpty().isLength({ min: 3, max: 50 }),
-    check("ano").exists().notEmpty().isInt().not().isString(),
+    check("año").exists().notEmpty().isInt().not(),
     check("descripcion").exists().notEmpty().isLength({ min: 3, max: 50 }),
     (req, res, next) => {
         const errors = validationResult(req);

@@ -15,15 +15,15 @@ const alquilerSchema = new Schema({
         required: true
     },
     auto: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Auto"
     },
     cliente: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Cliente"
     },
     score: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Score"
     }
 })

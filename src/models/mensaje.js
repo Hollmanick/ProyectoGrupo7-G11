@@ -11,11 +11,11 @@ const mensajeSchema = new Schema({
         required: true
     },
     auto: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Auto"
     },
     cliente: {
-        type: Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Cliente"
     }
 })

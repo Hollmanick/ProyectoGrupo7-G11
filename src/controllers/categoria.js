@@ -1,4 +1,4 @@
-const { Categoria } = require("../models/categoria.js")
+const { Categoria } = require("../models/Categoria.js")
 const { matchedData } = require("express-validator");
 
 /**
