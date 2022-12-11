@@ -10,14 +10,8 @@ const mensajeSchema = new Schema({
         type: String,
         required: true
     },
-    auto: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Auto"
-    },
-    cliente: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Cliente"
-    }
+    auto_id: {},
+    cliente_id: {}
 })
 
 /**

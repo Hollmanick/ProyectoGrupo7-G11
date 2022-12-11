@@ -10,10 +10,7 @@ const categoriaSchema = new Schema({
         type: String,
         required: true
     },
-    auto: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Auto"
-    }
+    auto_id: {}
 })
 
 /**

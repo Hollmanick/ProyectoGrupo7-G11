@@ -5,6 +5,9 @@ const validarBodyAuto = [
     check("marca").exists().notEmpty().isLength({ min: 3, max: 50 }),
     check("año").exists().notEmpty().isInt().not(),
     check("descripcion").exists().notEmpty().isLength({ min: 3, max: 50 }),
+    check("categoria_id").isMongoId(),
+    check("mensaje_id").isMongoId(),
+    check("alquiler_id").isMongoId(),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });

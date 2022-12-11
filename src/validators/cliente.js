@@ -5,6 +5,8 @@ const validarBodyCliente = [
     check("contrasena").exists().notEmpty().isLength({ min: 8, max: 50 }),
     check("nombre").exists().notEmpty().isLength({ min: 3, max: 50 }),
     check("edad").exists().notEmpty().isInt().not().isString(),
+    check("mensaje_id").isMongoId(),
+    check("alquiler_id").isMongoId(),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });

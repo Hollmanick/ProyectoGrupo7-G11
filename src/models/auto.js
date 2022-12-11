@@ -18,18 +18,9 @@ const autoSchema = new Schema({
         type: String,
         required: true
     },
-    categoria: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Categoria"
-    },
-    mensaje: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Mensaje"
-    },
-    alquiler: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Alquiler"
-    }
+    categoria_id: {},
+    mensaje_id: {},
+    alquiler_id: {}    
 })
 
 /**

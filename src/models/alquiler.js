@@ -14,18 +14,9 @@ const alquilerSchema = new Schema({
         type: String,
         required: true
     },
-    auto: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Auto"
-    },
-    cliente: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Cliente"
-    },
-    score: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Score"
-    }
+    auto_id: {},
+    cliente_id: {},
+    score_id: {}
 })
 
 /**

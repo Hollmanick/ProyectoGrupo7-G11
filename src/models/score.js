@@ -10,10 +10,7 @@ const scoreSchema = new Schema({
         type: String,
         required: true
     },
-    alquiler: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Alquiler"
-    }
+    alquiler_id: {}
 })
 
 /**
