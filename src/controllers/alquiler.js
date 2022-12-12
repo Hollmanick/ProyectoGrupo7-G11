@@ -42,7 +42,7 @@ const getAlquileres = async (req, res) => {
         res.status(200).json({
             "code_response": 200,
             "res_description": "documentos existentes dentro de la coleccion alquiler",
-            "alquileres_realizados": alquileres
+            "data": alquileres
         })
     } catch (error) {
         console.log(error.message)

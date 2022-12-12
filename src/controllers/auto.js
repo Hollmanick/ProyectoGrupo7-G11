@@ -9,36 +9,36 @@ const { matchedData } = require("express-validator");
 const getAutos = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion auto
-        // const alquileres = await Alquiler.find({}).lean();
-        const alquileres = await Alquiler.aggregate(
+        // const autos = await Auto.find({}).lean();
+        const autos = await Auto.aggregate(
             [
-                {   // Etapa coleccion autosalquilados
+                {   // Etapa coleccion categoriaDelAuto
                     $lookup: {
-                        from: "autos", // nombre del schema o coleccion foranea
+                        from: "categorias", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "autosalquilados" // nombre del campo a agregar
+                        foreignField: "auto_id", // clave del documento foraneo
+                        as: "categoriaDelAuto" // nombre del campo a agregar
                     }
                 },
-                {   // Etapa coleccion clientesQueAlquilaron
+                {   // Etapa coleccion mensajesSobreAuto
                     $lookup: {
-                        from: "clientes", // nombre del schema o coleccion foranea
+                        from: "mensajes", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "clientesQueAlquilaron" // nombre del campo a agregar
+                        foreignField: "auto_id", // clave del documento foraneo
+                        as: "mensajesSobreAuto" // nombre del campo a agregar
                     }
                 },
-                {   // Etapa coleccion scoresDeAlquiler
+                {   // Etapa coleccion alquileresDelAuto
                     $lookup: {
-                        from: "scores", // nombre del schema o coleccion foranea
+                        from: "alquileres", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "scoresDeAlquiler" // nombre del campo a agregar
+                        foreignField: "auto_id", // clave del documento foraneo
+                        as: "alquileresDelAuto" // nombre del campo a agregar
                     }
                 }  
             ]
         )
-        console.log("getAlquileres", alquileres);
+        console.log("getAutos", autos);
         res.status(200).json({
             "code_response": 200,
             "res_description": "documentos existentes dentro de la coleccion auto",
@@ -77,7 +77,7 @@ const getAuto = async (req, res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getAlquilerCliente = async (req, res) => {
+const getAutoCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
@@ -182,7 +182,7 @@ const deleteAuto = async (req, res) => {
 module.exports = {
     getAutos,
     getAuto,
-    getAlquilerCliente,
+    getAutoCliente,
     postAuto,
     putAuto,
     deleteAuto

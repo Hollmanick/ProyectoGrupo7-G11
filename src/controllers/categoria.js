@@ -9,36 +9,20 @@ const { matchedData } = require("express-validator");
 const getCategorias = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion categoria
-        // const alquileres = await Alquiler.find({}).lean();
-        const alquileres = await Alquiler.aggregate(
+        // const categorias = await Categoria.find({}).lean();
+        const categorias = await Categoria.aggregate(
             [
-                {   // Etapa coleccion autosalquilados
+                {   // Etapa coleccion autosDeEstaCategoria
                     $lookup: {
                         from: "autos", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "autosalquilados" // nombre del campo a agregar
+                        foreignField: "categoria_id", // clave del documento foraneo
+                        as: "autosDeEstaCategoria" // nombre del campo a agregar
                     }
-                },
-                {   // Etapa coleccion clientesQueAlquilaron
-                    $lookup: {
-                        from: "clientes", // nombre del schema o coleccion foranea
-                        localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "clientesQueAlquilaron" // nombre del campo a agregar
-                    }
-                },
-                {   // Etapa coleccion scoresDeAlquiler
-                    $lookup: {
-                        from: "scores", // nombre del schema o coleccion foranea
-                        localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "scoresDeAlquiler" // nombre del campo a agregar
-                    }
-                }  
+                } 
             ]
         )
-        console.log("getAlquileres", alquileres);
+        console.log("getCategorias", categorias);
         res.status(200).json({
             "code_response": 200,
             "res_description": "documentos existentes dentro de la coleccion categoria",
@@ -77,7 +61,7 @@ const getCategoria = async (req, res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getAlquilerCliente = async (req, res) => {
+const getCategoriaCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
@@ -182,7 +166,7 @@ const deleteCategoria = async (req, res) => {
 module.exports = {
     getCategorias,
     getCategoria,
-    getAlquilerCliente,
+    getCategoriaCliente,
     postCategoria,
     putCategoria,
     deleteCategoria
