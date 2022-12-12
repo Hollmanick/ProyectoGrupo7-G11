@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getScores, postScore, getScore, putScore, getMensajesCliente, getAlquilerCliente, deleteScore } = require("../controllers/score.js")
+const { getScores, postScore, getScore, putScore, getAlquilerCliente, deleteScore } = require("../controllers/score.js")
 const { validarBodyScore } = require("../validators/score.js")
 const router = Router();
 

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAutos, postAuto, getAuto, putAuto, getMensajesCliente, getAlquilerCliente, deleteAuto } = require("../controllers/auto.js")
+const { getAutos, postAuto, getAuto, putAuto, getAlquilerCliente, deleteAuto } = require("../controllers/auto.js")
 const { validarBodyAuto } = require("../validators/auto.js")
 const router = Router();
 

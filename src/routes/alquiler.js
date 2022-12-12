@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAlquileres, postAlquiler, getAlquiler, putAlquiler, getMensajesCliente, getAlquilerCliente, deleteAlquiler } = require("../controllers/alquiler.js")
+const { getAlquileres, postAlquiler, getAlquiler, putAlquiler, getAlquilerCliente, deleteAlquiler } = require("../controllers/alquiler.js")
 const { validarBodyAlquiler } = require("../validators/alquiler.js")
 const router = Router();
 

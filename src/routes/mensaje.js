@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getMensajes, postMensaje, getMensaje, putMensaje, getMensajesCliente, getAlquilerCliente, deleteMensaje } = require("../controllers/mensaje.js")
+const { getMensajes, postMensaje, getMensaje, putMensaje, getAlquilerCliente, deleteMensaje } = require("../controllers/mensaje.js")
 const { validarBodyMensaje } = require("../validators/mensaje.js")
 const router = Router();
 

@@ -9,7 +9,36 @@ const { matchedData } = require("express-validator");
 const getAutos = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion auto
-        const autos = await Auto.find({}).lean();
+        // const alquileres = await Alquiler.find({}).lean();
+        const alquileres = await Alquiler.aggregate(
+            [
+                {   // Etapa coleccion autosalquilados
+                    $lookup: {
+                        from: "autos", // nombre del schema o coleccion foranea
+                        localField: "_id", // clave del documento local 
+                        foreignField: "alquiler_id", // clave del documento foraneo
+                        as: "autosalquilados" // nombre del campo a agregar
+                    }
+                },
+                {   // Etapa coleccion clientesQueAlquilaron
+                    $lookup: {
+                        from: "clientes", // nombre del schema o coleccion foranea
+                        localField: "_id", // clave del documento local 
+                        foreignField: "alquiler_id", // clave del documento foraneo
+                        as: "clientesQueAlquilaron" // nombre del campo a agregar
+                    }
+                },
+                {   // Etapa coleccion scoresDeAlquiler
+                    $lookup: {
+                        from: "scores", // nombre del schema o coleccion foranea
+                        localField: "_id", // clave del documento local 
+                        foreignField: "alquiler_id", // clave del documento foraneo
+                        as: "scoresDeAlquiler" // nombre del campo a agregar
+                    }
+                }  
+            ]
+        )
+        console.log("getAlquileres", alquileres);
         res.status(200).json({
             "code_response": 200,
             "res_description": "documentos existentes dentro de la coleccion auto",

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getClientes, postCliente, getCliente, putCliente, getMensajesCliente, getAlquilerCliente, deleteCliente } = require("../controllers/cliente.js")
+const { getClientes, postCliente, getCliente, putCliente, getAlquilerCliente, deleteCliente } = require("../controllers/cliente.js")
 const { validarBodyCliente } = require("../validators/cliente.js")
 const router = Router();
 
