@@ -1,15 +1,13 @@
 const {Router} = require('express');
-const {getClientes, postCliente, getCliente, putCliente, getMensajesCliente, getAlquilerCliente} = require('../controllers/cliente.js')
-const {validarBodyCliente} = require('../validators/cliente.js')
+const { postCliente, getCliente, putCliente, getClientes, deleteCliente} = require('../controllers/cliente.js')
+const {validarBodyCliente, validarParamsCliente} = require('../validators/cliente.js')
 const router = Router();
 
 router
   .get('/',getClientes)
-  .get('/:id',getCliente)
-  .get('/mensajes/:id',getMensajesCliente)
-  .get('/alquiler/:id',getAlquilerCliente)
+  .get('/:id', validarParamsCliente,getCliente)
   .post('/',validarBodyCliente,postCliente)
-  .put('/update/:id',validarBodyCliente,putCliente)
-  .delete('/delete/:id',)
+  .put('/:id',validarParamsCliente,validarBodyCliente,putCliente)
+  .delete('/:id',validarParamsCliente,deleteCliente)
 
 module.exports = router;

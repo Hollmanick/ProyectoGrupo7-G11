@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const { Schema, model } = require('mongoose');
 const bcrypt = require('bcryptjs');
 const clienteSchema = new Schema({
     email:{
@@ -23,7 +22,7 @@ const clienteSchema = new Schema({
         default: null
     }
     // mensajes:{
-    //     type: Schema.Types.ObjectId,
+    //     type: .Types.ObjectId,
     //     ref: 'Mensajes',
     //     default: false
     // },
@@ -64,5 +63,5 @@ clienteSchema.pre('save', async function(next) {
 })
 
 // Definir el nombre del modelo y exportarlo usando module.exports
-const Cliente = mongoose.model('Cliente', clienteSchema);
+const Cliente = model('Cliente', clienteSchema);
 module.exports = {Cliente};
