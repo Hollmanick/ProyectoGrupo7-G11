@@ -12,7 +12,7 @@ const scoreSchema = new Schema({
     },
     alquiler:{
         type: Schema.Types.ObjectId,
-        ref: 'alquiler',
+        ref: 'Alquiler',
         default: null
     }
 });
@@ -40,7 +40,7 @@ const alquilerSchema = new Schema({
     },
     score: {
         type: Schema.ObjectId,
-        ref: "score"
+        ref: "Score"
     },
     score:[scoreSchema]
 });

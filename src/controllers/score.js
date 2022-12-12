@@ -1,4 +1,4 @@
-const { Score } = require('../models/score.js')
+const { Score } = require('../models/Score.js')
 const { matchedData } = require('express-validator');
 
 /**
@@ -43,6 +43,46 @@ const getScores = async (req,res) => {
 }
 
 /**
+ * Recupera el documento de la coleccion cliente cuyo id coincida y agrega un campo con los mensajes sus mensaje
+ * @param {Request} req - Objeto que contiene propiedades de la peticion
+ * @param {Response} res - Objeto que contiene propiedades de la respuesta
+ */
+const getAlquilerScore = async (req,res) => {
+    try {
+        const { id }  = req.params;
+        console.log("req.params", id);
+        const documento = await Score.aggregate(
+            [
+                {   // primera etapa
+                    $match: {
+                        _id: id // donde el campo id coincida
+                    } 
+                },
+                {   // segunda etapa
+                    $lookup: {
+                        from: 'Alquiler', // nombre del schema o coleccion foranea
+                        localField: '_id', // clave del documento local 
+                        foreingField: 'score_id', // clave del documento foraneo
+                        as: 'alquilerScore' // nombre del campo a agregar
+                    }
+                }   
+            ]
+        )
+        console.log("getAlquilerScore documento",documento)
+        console.log(documento);
+        res.status(200).json({
+            "code_response": 200,
+            "res_description": `Documento id: ${id} con sus alquiler`,
+            "data": documento
+        })
+    } catch (error) {
+        console.log(error.message)
+        res.status(200).json({"res_description":error.message})
+    }
+    
+}
+
+/**
  * Crear un nuevo documento del Schema Score
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
@@ -74,7 +114,7 @@ const putScore = async (req,res) => {
         }
         const data  = matchedData(req);
         console.log("req", data.params, data.body);
-        const documento = await Score.findByIdAndUpdate(id,body)
+        const documento = await Score.findByIdAndUpdate(id, data, { new: true});
         console.log("putScore documento",documento)
         res.status(200).json({
             "code_response": 200,
@@ -115,6 +155,7 @@ const deleteScore = async (req,res) => {
 module.exports = {
     getScores,
     getScore,
+    getAlquilerScore,
     postScore,
     putScore,
     deleteScore

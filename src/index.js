@@ -17,6 +17,7 @@ app.use(express.json());
 app.use('/api/score',require('./routes/score.js'));
 
 
+
 app.listen(port, () => {
     console.log(`Servidor corriendo en: http://localhost:${port} 🚀`);
 })
