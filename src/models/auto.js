@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 const autoSchema = new Schema({
     nombre: {
         type: String,

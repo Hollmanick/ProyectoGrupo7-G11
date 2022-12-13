@@ -65,45 +65,6 @@ const getCliente = async (req, res) => {
 }
 
 /**
- * Recupera el documento de la coleccion cliente cuyo id coincida y agrega un campo con los mensajes sus mensaje
- * @param {Request} req - Objeto que contiene propiedades de la peticion
- * @param {Response} res - Objeto que contiene propiedades de la respuesta
- */
-const getClienteCliente = async (req, res) => {
-    try {
-        const { id } = req.params;
-        console.log("req.params", id);
-        const documento = await Cliente.aggregate(
-            [
-                {   // primera etapa
-                    $match: {
-                        _id: id // donde el campo id coincida
-                    }
-                },
-                {   // segunda etapa
-                    $lookup: {
-                        from: "Cliente", // nombre del schema o coleccion foranea
-                        localField: "_id", // clave del documento local 
-                        foreingField: "cliente_id", // clave del documento foraneo
-                        as: "clienteCliente" // nombre del campo a agregar
-                    }
-                }
-            ]
-        )
-        console.log("getClienteCliente documento", documento)
-        console.log(documento);
-        res.status(200).json({
-            "code_response": 200,
-            "res_description": `Documento id: ${id} con sus cliente`,
-            "data": documento
-        })
-    } catch (error) {
-        console.log(error.message)
-        res.status(200).json({ "res_description": error.message })
-    }
-}
-
-/**
  * Crear un nuevo documento en la coleccion cliente
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
@@ -174,7 +135,6 @@ const deleteCliente = async (req, res) => {
 module.exports = {
     getClientes,
     getCliente,
-    getClienteCliente,
     postCliente,
     putCliente,
     deleteCliente

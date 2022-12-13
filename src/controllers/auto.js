@@ -73,45 +73,6 @@ const getAuto = async (req, res) => {
 }
 
 /**
- * Recupera el documento de la coleccion auto cuyo id coincida y agrega un campo con los mensajes sus mensaje
- * @param {Request} req - Objeto que contiene propiedades de la peticion
- * @param {Response} res - Objeto que contiene propiedades de la respuesta
- */
-const getAutoCliente = async (req, res) => {
-    try {
-        const { id } = req.params;
-        console.log("req.params", id);
-        const documento = await Auto.aggregate(
-            [
-                {   // primera etapa
-                    $match: {
-                        _id: id // donde el campo id coincida
-                    }
-                },
-                {   // segunda etapa
-                    $lookup: {
-                        from: "Auto", // nombre del schema o coleccion foranea
-                        localField: "_id", // clave del documento local 
-                        foreingField: "auto_id", // clave del documento foraneo
-                        as: "autoAuto" // nombre del campo a agregar
-                    }
-                }
-            ]
-        )
-        console.log("getAutoCliente documento", documento)
-        console.log(documento);
-        res.status(200).json({
-            "code_response": 200,
-            "res_description": `Documento id: ${id} con sus auto`,
-            "data": documento
-        })
-    } catch (error) {
-        console.log(error.message)
-        res.status(200).json({ "res_description": error.message })
-    }
-}
-
-/**
  * Crear un nuevo documento en la coleccion auto
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
@@ -182,7 +143,6 @@ const deleteAuto = async (req, res) => {
 module.exports = {
     getAutos,
     getAuto,
-    getAutoCliente,
     postAuto,
     putAuto,
     deleteAuto

@@ -65,45 +65,6 @@ const getMensaje = async (req, res) => {
 }
 
 /**
- * Recupera el documento de la coleccion mensaje cuyo id coincida y agrega un campo con los mensajes sus mensaje
- * @param {Request} req - Objeto que contiene propiedades de la peticion
- * @param {Response} res - Objeto que contiene propiedades de la respuesta
- */
-const getMensajeCliente = async (req, res) => {
-    try {
-        const { id } = req.params;
-        console.log("req.params", id);
-        const documento = await Mensaje.aggregate(
-            [
-                {   // primera etapa
-                    $match: {
-                        _id: id // donde el campo id coincida
-                    }
-                },
-                {   // segunda etapa
-                    $lookup: {
-                        from: "Mensaje", // nombre del schema o coleccion foranea
-                        localField: "_id", // clave del documento local 
-                        foreingField: "mensaje_id", // clave del documento foraneo
-                        as: "mensajeMensaje" // nombre del campo a agregar
-                    }
-                }
-            ]
-        )
-        console.log("getMensajeCliente documento", documento)
-        console.log(documento);
-        res.status(200).json({
-            "code_response": 200,
-            "res_description": `Documento id: ${id} con sus mensaje`,
-            "data": documento
-        })
-    } catch (error) {
-        console.log(error.message)
-        res.status(200).json({ "res_description": error.message })
-    }
-}
-
-/**
  * Crear un nuevo documento en la coleccion mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
@@ -174,7 +135,6 @@ const deleteMensaje = async (req, res) => {
 module.exports = {
     getMensajes,
     getMensaje,
-    getMensajeCliente,
     postMensaje,
     putMensaje,
     deleteMensaje
