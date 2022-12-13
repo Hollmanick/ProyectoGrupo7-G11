@@ -1,19 +1,19 @@
-const { Cliente } = require("../models/Cliente.js")
+const { Mensaje } = require("../models/Mensaje.js")
 const { matchedData } = require("express-validator");
 
 /**
- * Listar todos los documentos de la coleccion cliente
+ * Listar todos los documentos de la coleccion mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getClientes = async (req, res) => {
+const getMensajes = async (req, res) => {
     try {
-        // Obtener todos los documentos existentes dentro de la coleccion cliente
-        const clientes = await Cliente.find({}).lean();
+        // Obtener todos los documentos existentes dentro de la coleccion mensaje
+        const mensajes = await Mensaje.find({}).lean();
         res.status(200).json({
             "code_response": 200,
-            "res_description": "documentos existentes dentro de la coleccion cliente",
-            "data": clientes
+            "res_description": "documentos existentes dentro de la coleccion mensaje",
+            "data": mensajes
         })
     } catch (error) {
         console.log(error.message)
@@ -22,20 +22,20 @@ const getClientes = async (req, res) => {
 }
 
 /**
- * Encontrar un documento de la coleccion cliente por _id 
+ * Encontrar un documento de la coleccion mensaje por _id 
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getCliente = async (req, res) => {
+const getMensaje = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const cliente = await Cliente.findById(id);
-        console.log(cliente);
+        const mensaje = await Mensaje.findById(id);
+        console.log(mensaje);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `cliente para id: ${id}`,
-            "data": cliente
+            "res_description": `mensaje para id: ${id}`,
+            "data": mensaje
         })
     } catch (error) {
         console.log(error.message)
@@ -44,7 +44,7 @@ const getCliente = async (req, res) => {
 }
 
 /**
- * Recupera el documento de la coleccion cliente cuyo id coincida y agrega un campo con los mensajes sus mensaje
+ * Recupera el documento de la coleccion mensaje cuyo id coincida y agrega un campo con los mensajes sus mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
@@ -52,7 +52,7 @@ const getMensajesCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const documento = await Cliente.aggregate(
+        const documento = await Mensaje.aggregate(
             [
                 // {   // primera etapa
                 //     $match: {
@@ -63,8 +63,8 @@ const getMensajesCliente = async (req, res) => {
                     $lookup: {
                         from: "mensajes", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
-                        foreignField: "cliente_id", // clave del documento foraneo
-                        as: "mensajesCliente" // nombre del campo a agregar
+                        foreignField: "mensaje_id", // clave del documento foraneo
+                        as: "mensajesMensaje" // nombre del campo a agregar
                     }
                 }
             ]
@@ -83,7 +83,7 @@ const getMensajesCliente = async (req, res) => {
 }
 
 /**
- * Recupera el documento de la coleccion cliente cuyo id coincida y agrega un campo con los mensajes sus mensaje
+ * Recupera el documento de la coleccion mensaje cuyo id coincida y agrega un campo con los mensajes sus mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
@@ -91,7 +91,7 @@ const getAlquilerCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const documento = await Cliente.aggregate(
+        const documento = await Mensaje.aggregate(
             [
                 {   // primera etapa
                     $match: {
@@ -100,19 +100,19 @@ const getAlquilerCliente = async (req, res) => {
                 },
                 {   // segunda etapa
                     $lookup: {
-                        from: "Cliente", // nombre del schema o coleccion foranea
+                        from: "Mensaje", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
-                        foreingField: "cliente_id", // clave del documento foraneo
-                        as: "clienteCliente" // nombre del campo a agregar
+                        foreingField: "mensaje_id", // clave del documento foraneo
+                        as: "mensajeMensaje" // nombre del campo a agregar
                     }
                 }
             ]
         )
-        console.log("getClienteCliente documento", documento)
+        console.log("getMensajeCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `Documento id: ${id} con sus cliente`,
+            "res_description": `Documento id: ${id} con sus mensaje`,
             "data": documento
         })
     } catch (error) {
@@ -122,19 +122,19 @@ const getAlquilerCliente = async (req, res) => {
 }
 
 /**
- * Crear un nuevo documento en la coleccion cliente
+ * Crear un nuevo documento en la coleccion mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const postCliente = async (req, res) => {
+const postMensaje = async (req, res) => {
     try {
         const body = matchedData(req);
         console.log("req.body", body);
-        const newCliente = await Cliente.create(body);
-        console.log(newCliente);
+        const newMensaje = await Mensaje.create(body);
+        console.log(newMensaje);
         res.status(200).json({
             "code_response": 200,
-            "res_description": "Documento Cliente creado"
+            "res_description": "Documento Mensaje creado"
         })
     } catch (error) {
         console.log(error.message)
@@ -143,18 +143,18 @@ const postCliente = async (req, res) => {
 }
 
 /**
- * Modificar un documento de la coleccion cliente
+ * Modificar un documento de la coleccion mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const putCliente = async (req, res) => {
+const putMensaje = async (req, res) => {
     try {
         const data = matchedData(req);
         console.log("req", data.params, data.body);
         const { id } = req.params;
         console.log("req.params", id);
-        const documento = await Cliente.findByIdAndUpdate(id, data, { new: true });
-        console.log("putCliente documento", documento)
+        const documento = await Mensaje.findByIdAndUpdate(id, data, { new: true });
+        console.log("putMensaje documento", documento)
         res.status(200).json({
             "code_response": 200,
             "res_description": `Documento id: ${id} actualizado`,
@@ -167,16 +167,16 @@ const putCliente = async (req, res) => {
 }
 
 /**
- * Modificar un documento de la coleccion cliente
+ * Modificar un documento de la coleccion mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const deleteCliente = async (req, res) => {
+const deleteMensaje = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const documento = await Cliente.findByIdAndDelete(id)
-        console.log("deleteCliente documento", documento)
+        const documento = await Mensaje.findByIdAndDelete(id)
+        console.log("deleteMensaje documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
@@ -190,11 +190,11 @@ const deleteCliente = async (req, res) => {
 }
 
 module.exports = {
-    getClientes,
-    getCliente,
+    getMensajes,
+    getMensaje,
     getMensajesCliente,
     getAlquilerCliente,
-    postCliente,
-    putCliente,
-    deleteCliente
+    postMensaje,
+    putMensaje,
+    deleteMensaje
 }

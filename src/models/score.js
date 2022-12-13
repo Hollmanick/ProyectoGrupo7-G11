@@ -1,30 +1,14 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const bcrypt = require("bcryptjs");
-const autoSchema = new Schema({
-    nombre: {
+const scoreSchema = new Schema({
+    score: {
         type: String,
-        required: true
-    },
-    marca: {
-        type: String,
-        required: true
-    },
-    año: {
-        type: Number,
         required: true
     },
     descripcion: {
         type: String,
         required: true
-    },
-    categoria: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Categoria"
-    },
-    mensaje: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Mensaje"
     },
     alquiler: {
         type: mongoose.Schema.Types.ObjectId,
@@ -37,23 +21,23 @@ const autoSchema = new Schema({
  * @param {String} password - Contraseña a comparar
  * @returns {Promise}
  */
-autoSchema.methods.comparePassword = async function (password) {
+scoreSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.contrasena);
 }
 
 /**
  * Metodo sincrono ejecutado antes de guardar una contrasena en la base de datos para hashear
  */
-autoSchema.pre("save", async function (next) {
-    const auto = this
-    if (!auto.isModified("contrasena")) return next();
+scoreSchema.pre("save", async function (next) {
+    const score = this
+    if (!score.isModified("contrasena")) return next();
     try {
         // instancia de bcrypt para definir el salt que se usara para hashear la contraseña
         const salt = await bcrypt.genSaltSync(10);
         // hashear  contraseña
-        const hash = await bcrypt.hash(auto.contrasena, salt);
+        const hash = await bcrypt.hash(score.contrasena, salt);
         // definir la contraseña hasheada al campo contrasena del esquema
-        auto.contrasena = hash;
+        score.contrasena = hash;
         next();
     } catch (error) {
         console.log(`hay un error al hashear la contraseña ${error}`);
@@ -62,5 +46,5 @@ autoSchema.pre("save", async function (next) {
 })
 
 // Definir el nombre del modelo y exportarlo usando module.exports
-const Auto = mongoose.model("Auto", autoSchema);
-module.exports = { Auto };evDependencies
+const Score = mongoose.model("Score", scoreSchema);
+module.exports = { Score };

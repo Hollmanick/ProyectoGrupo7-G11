@@ -1,20 +1,20 @@
-const { Auto } = require("../models/Auto.js")
+const { Alquiler } = require("../models/Alquiler.js");
 const { matchedData } = require("express-validator");
 
 /**
- * Listar todos los documentos de la coleccion auto
+ * Listar todos los documentos de la coleccion alquiler
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getAutos = async (req, res) => {
+const getAlquileres = async (req, res) => {
     try {
-        // Obtener todos los documentos existentes dentro de la coleccion auto
-        const autos = await Auto.find({}).lean();
+        // Obtener todos los documentos existentes dentro de la coleccion alquiler
+        const alquileres = await Alquiler.find({}).lean();
         res.status(200).json({
             "code_response": 200,
-            "res_description": "documentos existentes dentro de la coleccion auto",
-            "data": autos
-        }).populate("Auto");
+            "res_description": "documentos existentes dentro de la coleccion alquiler",
+            "data": alquileres
+        })
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
@@ -22,21 +22,21 @@ const getAutos = async (req, res) => {
 }
 
 /**
- * Encontrar un documento de la coleccion auto por _id 
+ * Encontrar un documento de la coleccion alquiler por _id 
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getAuto = async (req, res) => {
+const getAlquiler = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const auto = await Auto.findById(id);
-        console.log(auto);
+        const alquiler = await Alquiler.findById(id);
+        console.log(alquiler);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `auto para id: ${id}`,
-            "data": auto
-        }).populate("Auto");
+            "res_description": `alquiler para id: ${id}`,
+            "data": alquiler
+        })
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ "res_description": error.message })
@@ -44,7 +44,7 @@ const getAuto = async (req, res) => {
 }
 
 /**
- * Recupera el documento de la coleccion auto cuyo id coincida y agrega un campo con los mensajes sus mensaje
+ * Recupera el documento de la coleccion alquiler cuyo id coincida y agrega un campo con los mensajes sus mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
@@ -52,7 +52,7 @@ const getMensajesCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const documento = await Auto.aggregate(
+        const documento = await Alquiler.aggregate(
             [
                 // {   // primera etapa
                 //     $match: {
@@ -63,8 +63,8 @@ const getMensajesCliente = async (req, res) => {
                     $lookup: {
                         from: "mensajes", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
-                        foreignField: "auto_id", // clave del documento foraneo
-                        as: "mensajesAuto" // nombre del campo a agregar
+                        foreignField: "alquiler_id", // clave del documento foraneo
+                        as: "mensajesAlquiler" // nombre del campo a agregar
                     }
                 }
             ]
@@ -83,7 +83,7 @@ const getMensajesCliente = async (req, res) => {
 }
 
 /**
- * Recupera el documento de la coleccion auto cuyo id coincida y agrega un campo con los mensajes sus mensaje
+ * Recupera el documento de la coleccion alquiler cuyo id coincida y agrega un campo con los mensajes sus mensaje
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
@@ -91,7 +91,7 @@ const getAlquilerCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const documento = await Auto.aggregate(
+        const documento = await Alquiler.aggregate(
             [
                 {   // primera etapa
                     $match: {
@@ -100,19 +100,19 @@ const getAlquilerCliente = async (req, res) => {
                 },
                 {   // segunda etapa
                     $lookup: {
-                        from: "Auto", // nombre del schema o coleccion foranea
+                        from: "Alquiler", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
-                        foreingField: "auto_id", // clave del documento foraneo
-                        as: "autoAuto" // nombre del campo a agregar
+                        foreingField: "alquiler_id", // clave del documento foraneo
+                        as: "alquilerAlquiler" // nombre del campo a agregar
                     }
                 }
             ]
         )
-        console.log("getAutoCliente documento", documento)
+        console.log("getAlquilerCliente documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `Documento id: ${id} con sus auto`,
+            "res_description": `Documento id: ${id} con sus alquiler`,
             "data": documento
         })
     } catch (error) {
@@ -122,19 +122,19 @@ const getAlquilerCliente = async (req, res) => {
 }
 
 /**
- * Crear un nuevo documento en la coleccion auto
+ * Crear un nuevo documento en la coleccion alquiler
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const postAuto = async (req, res) => {
+const postAlquiler = async (req, res) => {
     try {
         const body = matchedData(req);
         console.log("req.body", body);
-        const newAuto = await Auto.create(body);
-        console.log(newAuto);
+        const newAlquiler = await Alquiler.create(body);
+        console.log(newAlquiler);
         res.status(200).json({
             "code_response": 200,
-            "res_description": "Documento Auto creado"
+            "res_description": "Documento Alquiler creado"
         })
     } catch (error) {
         console.log(error.message)
@@ -143,18 +143,18 @@ const postAuto = async (req, res) => {
 }
 
 /**
- * Modificar un documento de la coleccion auto
+ * Modificar un documento de la coleccion alquiler
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const putAuto = async (req, res) => {
+const putAlquiler = async (req, res) => {
     try {
         const data = matchedData(req);
         console.log("req", data.params, data.body);
         const { id } = req.params;
         console.log("req.params", id);
-        const documento = await Auto.findByIdAndUpdate(id, data, { new: true });
-        console.log("putAuto documento", documento)
+        const documento = await Alquiler.findByIdAndUpdate(id, data, { new: true });
+        console.log("putAlquiler documento", documento)
         res.status(200).json({
             "code_response": 200,
             "res_description": `Documento id: ${id} actualizado`,
@@ -167,16 +167,16 @@ const putAuto = async (req, res) => {
 }
 
 /**
- * Modificar un documento de la coleccion auto
+ * Modificar un documento de la coleccion alquiler
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const deleteAuto = async (req, res) => {
+const deleteAlquiler = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const documento = await Auto.findByIdAndDelete(id)
-        console.log("deleteAuto documento", documento)
+        const documento = await Alquiler.findByIdAndDelete(id)
+        console.log("deleteAlquiler documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
@@ -190,11 +190,11 @@ const deleteAuto = async (req, res) => {
 }
 
 module.exports = {
-    getAutos,
-    getAuto,
+    getAlquileres,
+    getAlquiler,
     getMensajesCliente,
     getAlquilerCliente,
-    postAuto,
-    putAuto,
-    deleteAuto
+    postAlquiler,
+    putAlquiler,
+    deleteAlquiler
 }
