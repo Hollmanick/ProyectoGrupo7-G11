@@ -51,7 +51,7 @@ const getMensaje = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const mensaje = await Mensaje.findById(id);
+        const mensaje = await Mensaje.findById(id).populate("auto_id").populate("cliente_id");
         console.log(mensaje);
         res.status(200).json({
             "code_response": 200,

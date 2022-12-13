@@ -59,7 +59,7 @@ const getAuto = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const auto = await Auto.findById(id);
+        const auto = await Auto.findById(id).populate("categoria_id").populate("mensaje_id").populate("alquiler_id");
         console.log(auto);
         res.status(200).json({
             "code_response": 200,

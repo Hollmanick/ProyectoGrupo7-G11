@@ -43,7 +43,7 @@ const getCategoria = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const categoria = await Categoria.findById(id);
+        const categoria = await Categoria.findById(id).populate("auto_id");
         console.log(categoria);
         res.status(200).json({
             "code_response": 200,

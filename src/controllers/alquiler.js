@@ -59,7 +59,7 @@ const getAlquiler = async (req, res) => {
     try {
         const {id} = req.params;
         console.log("req.params", id);
-        const alquiler = await Alquiler.findById(id).populate("auto_id","cliente_id","score_id");
+        const alquiler = await Alquiler.findById(id).populate("auto_id").populate("cliente_id").populate("score_id");
         // const alquiler = await Alquiler.aggregate(
         //     [                
         //         // {   // primera etapa

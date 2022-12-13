@@ -43,7 +43,7 @@ const getScore = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const score = await Score.findById(id);
+        const score = await Score.findById(id).populate("alquiler_id");
         console.log(score);
         res.status(200).json({
             "code_response": 200,

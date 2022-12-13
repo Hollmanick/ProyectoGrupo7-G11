@@ -51,7 +51,7 @@ const getCliente = async (req, res) => {
     try {
         const { id } = req.params;
         console.log("req.params", id);
-        const cliente = await Cliente.findById(id);
+        const cliente = await Cliente.findById(id).populate("mensaje_id").populate("alquiler_id");
         console.log(cliente);
         res.status(200).json({
             "code_response": 200,
