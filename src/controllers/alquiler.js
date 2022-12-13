@@ -57,13 +57,53 @@ const getAlquileres = async (req, res) => {
  */
 const getAlquiler = async (req, res) => {
     try {
-        const { id } = req.params;
+        const {id} = req.params;
         console.log("req.params", id);
-        const alquiler = await Alquiler.findById(id);
+        const alquiler = await Alquiler.aggregate(
+            [                
+                // {   // primera etapa
+                //     $match: {
+                //         _id: id // donde el campo id coincida
+                //     }
+                // },
+                { 
+                    $match: { _id: ObjectId(req.params.id) }
+                },                
+                {   
+                    "$addFields": { "id": { "$toString": "_id"}
+                    } 
+                },               
+                {   // Etapa coleccion autosalquilados
+                    $lookup: {
+                        from: "autos", // nombre del schema o coleccion foranea
+                        localField: "_id", // clave del documento local 
+                        foreignField: "alquiler_id", // clave del documento foraneo
+                        as: "autosalquilados" // nombre del campo a agregar
+                    }
+                },
+                {   // Etapa coleccion clientesQueAlquilaron
+                    $lookup: {
+                        from: "clientes", // nombre del schema o coleccion foranea
+                        localField: "_id", // clave del documento local 
+                        foreignField: "alquiler_id", // clave del documento foraneo
+                        as: "clientesQueAlquilaron" // nombre del campo a agregar
+                    }
+                },
+                {   // Etapa coleccion scoresDeAlquiler
+                    $lookup: {
+                        from: "scores", // nombre del schema o coleccion foranea
+                        localField: "_id", // clave del documento local 
+                        foreignField: "alquiler_id", // clave del documento foraneo
+                        as: "scoresDeAlquiler" // nombre del campo a agregar
+                    }
+                } 
+            ]
+        )
+        console.log("getAlquiler", alquiler)
         console.log(alquiler);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `alquiler para id: ${id}`,
+            "res_description": `Documento id: ${id} con sus alquiler`,
             "data": alquiler
         })
     } catch (error) {
@@ -83,14 +123,14 @@ const getAlquilerCliente = async (req, res) => {
         console.log("req.params", id);
         const documento = await Alquiler.aggregate(
             [
-                {   // primera etapa
-                    $match: {
-                        _id: id // donde el campo id coincida
-                    }
-                },
+                // {   // primera etapa
+                //     $match: {
+                //         _id: id // donde el campo id coincida
+                //     }
+                // },
                 {   // segunda etapa
                     $lookup: {
-                        from: "Alquiler", // nombre del schema o coleccion foranea
+                        from: "autos", // nombre del schema o coleccion foranea
                         localField: "_id", // clave del documento local 
                         foreingField: "alquiler_id", // clave del documento foraneo
                         as: "alquilerAlquiler" // nombre del campo a agregar
@@ -102,7 +142,7 @@ const getAlquilerCliente = async (req, res) => {
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
-            "res_description": `Documento id: ${id} con sus alquiler`,
+            "res_description": `Documento id con sus alquiler`,
             "data": documento
         })
     } catch (error) {
