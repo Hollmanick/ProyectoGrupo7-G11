@@ -9,7 +9,10 @@ const categoriaSchema = new Schema({
         type: String,
         required: true
     },
-    auto_id: {}
+    auto_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Auto"
+    }
 })
 
 // Definir el nombre del modelo y exportarlo usando module.exports

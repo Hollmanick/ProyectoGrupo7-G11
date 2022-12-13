@@ -59,46 +59,47 @@ const getAlquiler = async (req, res) => {
     try {
         const {id} = req.params;
         console.log("req.params", id);
-        const alquiler = await Alquiler.aggregate(
-            [                
-                // {   // primera etapa
-                //     $match: {
-                //         _id: id // donde el campo id coincida
-                //     }
-                // },
-                // { 
-                //     $match: { _id: ObjectId(req.params.id) }
-                // },
-                {   
-                    "$addFields": { "id": { "$toString": "_id"}
-                    } 
-                },               
-                {   // Etapa coleccion autosalquilados
-                    $lookup: {
-                        from: "autos", // nombre del schema o coleccion foranea
-                        localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "autosalquilados" // nombre del campo a agregar
-                    }
-                },
-                {   // Etapa coleccion clientesQueAlquilaron
-                    $lookup: {
-                        from: "clientes", // nombre del schema o coleccion foranea
-                        localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "clientesQueAlquilaron" // nombre del campo a agregar
-                    }
-                },
-                {   // Etapa coleccion scoresDeAlquiler
-                    $lookup: {
-                        from: "scores", // nombre del schema o coleccion foranea
-                        localField: "_id", // clave del documento local 
-                        foreignField: "alquiler_id", // clave del documento foraneo
-                        as: "scoresDeAlquiler" // nombre del campo a agregar
-                    }
-                } 
-            ]
-        )
+        const alquiler = await Alquiler.findById(id).populate("auto_id","cliente_id","score_id");
+        // const alquiler = await Alquiler.aggregate(
+        //     [                
+        //         // {   // primera etapa
+        //         //     $match: {
+        //         //         _id: id // donde el campo id coincida
+        //         //     }
+        //         // },
+        //         // { 
+        //         //     $match: { _id: ObjectId(req.params.id) }
+        //         // },
+        //         {   
+        //             "$addFields": { "id": { "$toString": "_id"}
+        //             } 
+        //         },               
+        //         {   // Etapa coleccion autosalquilados
+        //             $lookup: {
+        //                 from: "autos", // nombre del schema o coleccion foranea
+        //                 localField: "_id", // clave del documento local 
+        //                 foreignField: "alquiler_id", // clave del documento foraneo
+        //                 as: "autosalquilados" // nombre del campo a agregar
+        //             }
+        //         },
+        //         {   // Etapa coleccion clientesQueAlquilaron
+        //             $lookup: {
+        //                 from: "clientes", // nombre del schema o coleccion foranea
+        //                 localField: "_id", // clave del documento local 
+        //                 foreignField: "alquiler_id", // clave del documento foraneo
+        //                 as: "clientesQueAlquilaron" // nombre del campo a agregar
+        //             }
+        //         },
+        //         {   // Etapa coleccion scoresDeAlquiler
+        //             $lookup: {
+        //                 from: "scores", // nombre del schema o coleccion foranea
+        //                 localField: "_id", // clave del documento local 
+        //                 foreignField: "alquiler_id", // clave del documento foraneo
+        //                 as: "scoresDeAlquiler" // nombre del campo a agregar
+        //             }
+        //         } 
+        //     ]
+        // )
         console.log("getAlquiler", alquiler)
         console.log(alquiler);
         res.status(200).json({

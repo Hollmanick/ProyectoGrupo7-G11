@@ -9,7 +9,10 @@ const scoreSchema = new Schema({
         type: String,
         required: true
     },
-    alquiler_id: {}
+    alquiler_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Alquiler"
+    }
 })
 
 // Definir el nombre del modelo y exportarlo usando module.exports

@@ -13,9 +13,18 @@ const alquilerSchema = new Schema({
         type: String,
         required: true
     },
-    auto_id: {},
-    cliente_id: {},
-    score_id: {}
+    auto_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Auto"
+    },
+    cliente_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Cliente"
+    },
+    score_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Score"
+    }
 })
 
 // Definir el nombre del modelo y exportarlo usando module.exports

@@ -17,9 +17,18 @@ const autoSchema = new Schema({
         type: String,
         required: true
     },
-    categoria_id: {},
-    mensaje_id: {},
-    alquiler_id: {}    
+    categoria_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Categoria"
+    },
+    mensaje_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Mensaje"
+    },
+    alquiler_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Alquiler"
+    }    
 })
 
 // Definir el nombre del modelo y exportarlo usando module.exports

@@ -22,8 +22,14 @@ const clienteSchema = new Schema({
         type: Number,
         default: null
     },
-    mensaje_id: {},
-    alquiler_id: {}
+    mensaje_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Mensaje"
+    },
+    alquiler_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Alquiler"
+    }
 })
 
 /**

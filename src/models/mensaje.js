@@ -9,8 +9,14 @@ const mensajeSchema = new Schema({
         type: String,
         required: true
     },
-    auto_id: {},
-    cliente_id: {}
+    auto_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Auto"
+    },
+    cliente_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Cliente"
+    }
 })
 
 // Definir el nombre del modelo y exportarlo usando module.exports
