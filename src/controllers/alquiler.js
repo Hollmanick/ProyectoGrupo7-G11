@@ -10,34 +10,6 @@ const getAlquileres = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion alquiler
         const alquileres = await Alquiler.find({}).lean().populate("auto_id").populate("cliente_id").populate("score_id");
-        // const alquileres = await Alquiler.aggregate(
-        //     [
-        //         {   // Etapa coleccion autosalquilados
-        //             $lookup: {
-        //                 from: "autos", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "alquiler_id", // clave del documento foraneo
-        //                 as: "autosalquilados" // nombre del campo a agregar
-        //             }
-        //         },
-        //         {   // Etapa coleccion clientesQueAlquilaron
-        //             $lookup: {
-        //                 from: "clientes", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "alquiler_id", // clave del documento foraneo
-        //                 as: "clientesQueAlquilaron" // nombre del campo a agregar
-        //             }
-        //         },
-        //         {   // Etapa coleccion scoresDeAlquiler
-        //             $lookup: {
-        //                 from: "scores", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "alquiler_id", // clave del documento foraneo
-        //                 as: "scoresDeAlquiler" // nombre del campo a agregar
-        //             }
-        //         }  
-        //     ]
-        // )
         console.log("getAlquileres", alquileres);
         res.status(200).json({
             "code_response": 200,
@@ -57,9 +29,9 @@ const getAlquileres = async (req, res) => {
  */
 const getAlquiler = async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         console.log("req.params", id);
-        const alquiler = await Alquiler.findById(id).populate("auto_id").populate("cliente_id").populate("score_id");        
+        const alquiler = await Alquiler.findById(id).populate("auto_id").populate("cliente_id").populate("score_id");
         console.log("getAlquiler", alquiler)
         console.log(alquiler);
         res.status(200).json({

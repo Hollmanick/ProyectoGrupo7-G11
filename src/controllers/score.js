@@ -10,18 +10,6 @@ const getScores = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion score
         const scores = await Score.find({}).lean().populate("alquiler_id");
-        // const scores = await Score.aggregate(
-        //     [
-        //         {   // Etapa coleccion alquileresConScore
-        //             $lookup: {
-        //                 from: "alquileres", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "score_id", // clave del documento foraneo
-        //                 as: "alquileresConScore" // nombre del campo a agregar
-        //             }
-        //         }  
-        //     ]
-        // )
         console.log("getScores", scores);
         res.status(200).json({
             "code_response": 200,

@@ -10,34 +10,6 @@ const getAutos = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion auto
         const autos = await Auto.find({}).lean().populate("categoria_id").populate("mensaje_id").populate("alquiler_id");
-        // const autos = await Auto.aggregate(
-        //     [
-        //         {   // Etapa coleccion categoriaDelAuto
-        //             $lookup: {
-        //                 from: "categorias", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "auto_id", // clave del documento foraneo
-        //                 as: "categoriaDelAuto" // nombre del campo a agregar
-        //             }
-        //         },
-        //         {   // Etapa coleccion mensajesSobreAuto
-        //             $lookup: {
-        //                 from: "mensajes", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "auto_id", // clave del documento foraneo
-        //                 as: "mensajesSobreAuto" // nombre del campo a agregar
-        //             }
-        //         },
-        //         {   // Etapa coleccion alquileresDelAuto
-        //             $lookup: {
-        //                 from: "alquileres", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "auto_id", // clave del documento foraneo
-        //                 as: "alquileresDelAuto" // nombre del campo a agregar
-        //             }
-        //         }  
-        //     ]
-        // )
         console.log("getAutos", autos);
         res.status(200).json({
             "code_response": 200,

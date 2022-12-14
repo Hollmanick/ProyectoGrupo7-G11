@@ -10,18 +10,6 @@ const getCategorias = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion categoria
         const categorias = await Categoria.find({}).lean().populate("auto_id");
-        // const categorias = await Categoria.aggregate(
-        //     [
-        //         {   // Etapa coleccion autosDeEstaCategoria
-        //             $lookup: {
-        //                 from: "autos", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "categoria_id", // clave del documento foraneo
-        //                 as: "autosDeEstaCategoria" // nombre del campo a agregar
-        //             }
-        //         } 
-        //     ]
-        // )
         console.log("getCategorias", categorias);
         res.status(200).json({
             "code_response": 200,

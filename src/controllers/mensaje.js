@@ -10,26 +10,6 @@ const getMensajes = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion mensaje
         const mensajes = await Mensaje.find({}).lean().populate("auto_id").populate("cliente_id");
-        // const mensajes = await Mensaje.aggregate(
-        //     [
-        //         {   // Etapa coleccion autosConMensajes
-        //             $lookup: {
-        //                 from: "autos", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "mensaje_id", // clave del documento foraneo
-        //                 as: "autosConMensajes" // nombre del campo a agregar
-        //             }
-        //         },
-        //         {   // Etapa coleccion clientesConMensajes
-        //             $lookup: {
-        //                 from: "clientes", // nombre del schema o coleccion foranea
-        //                 localField: "_id", // clave del documento local 
-        //                 foreignField: "mensaje_id", // clave del documento foraneo
-        //                 as: "clientesConMensajes" // nombre del campo a agregar
-        //             }
-        //         } 
-        //     ]
-        // )
         console.log("getMensajes", mensajes);
         res.status(200).json({
             "code_response": 200,
