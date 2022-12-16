@@ -6,8 +6,8 @@ const router = Router();
 router
     .get("/mostrarCategorias", getCategorias)
     .get("/mostrarCategoria/:id", getCategoria)
-    .post("agregarCategoria/", validarBodyCategoria, postCategoria)
-    .put("editarCategoria/:id", validarBodyCategoria, putCategoria)
-    .delete("eliminarCategoria/:id", deleteCategoria)
+    .post("/agregarCategoria", validarBodyCategoria, postCategoria)
+    .put("/editarCategoria/:id", validarBodyCategoria, putCategoria)
+    .delete("/eliminarCategoria/:id", deleteCategoria)
 
 module.exports = router;

@@ -6,8 +6,8 @@ const router = Router();
 router
     .get("/mostrarMensajes", getMensajes)
     .get("/mostrarMensaje/:id", getMensaje)
-    .post("agregarMensaje/", validarBodyMensaje, postMensaje)
-    .put("editarMensaje/:id", validarBodyMensaje, putMensaje)
-    .delete("eliminarMensaje/:id", deleteMensaje)
+    .post("/agregarMensaje", validarBodyMensaje, postMensaje)
+    .put("/editarMensaje/:id", validarBodyMensaje, putMensaje)
+    .delete("/eliminarMensaje/:id", deleteMensaje)
 
 module.exports = router;

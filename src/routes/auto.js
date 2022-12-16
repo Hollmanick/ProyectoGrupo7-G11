@@ -6,8 +6,8 @@ const router = Router();
 router
     .get("/mostrarAutos", getAutos)
     .get("/mostrarAuto/:id", getAuto)
-    .post("agregarAuto/", validarBodyAuto, postAuto)
-    .put("editarAuto/:id", validarBodyAuto, putAuto)
-    .delete("eliminarAuto/:id", deleteAuto)
+    .post("/agregarAuto", validarBodyAuto, postAuto)
+    .put("/editarAuto/:id", validarBodyAuto, putAuto)
+    .delete("/eliminarAuto/:id", deleteAuto)
 
 module.exports = router;
