@@ -4,10 +4,10 @@ const { validarBodyCliente } = require("../validators/cliente.js")
 const router = Router();
 
 router
-    .get("/", getClientes)
-    .get("/:id", getCliente)
-    .post("/", validarBodyCliente, postCliente)
-    .put("/:id", validarBodyCliente, putCliente)
-    .delete("/:id", deleteCliente)
+    .get("/mostrarClientes", getClientes)
+    .get("/mostrarCliente/:id", getCliente)
+    .post("agregarCliente/", validarBodyCliente, postCliente)
+    .put("editarCliente/:id", validarBodyCliente, putCliente)
+    .delete("eliminarCliente/:id", deleteCliente)
 
 module.exports = router;

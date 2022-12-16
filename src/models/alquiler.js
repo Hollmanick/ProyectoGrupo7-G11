@@ -9,7 +9,7 @@ const alquilerSchema = new Schema({
         type: String,
         required: true
     },
-    status: {
+    estatus: {
         type: String,
         required: true
     },

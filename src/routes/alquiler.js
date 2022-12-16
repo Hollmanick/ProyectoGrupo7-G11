@@ -4,10 +4,10 @@ const { validarBodyAlquiler } = require("../validators/alquiler.js")
 const router = Router();
 
 router
-    .get("/", getAlquileres)
-    .get("/:id", getAlquiler)
-    .post("/", validarBodyAlquiler, postAlquiler)
-    .put("/:id", validarBodyAlquiler, putAlquiler)
-    .delete("/:id", deleteAlquiler)
+    .get("/mostrarAlquileres", getAlquileres)
+    .get("/mostrarAlquiler/:id", getAlquiler)
+    .post("agregarAlquiler/", validarBodyAlquiler, postAlquiler)
+    .put("editarAlquiler/:id", validarBodyAlquiler, putAlquiler)
+    .delete("eliminarAlquiler/:id", deleteAlquiler)
 
 module.exports = router;

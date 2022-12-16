@@ -4,10 +4,10 @@ const { validarBodyAuto } = require("../validators/auto.js")
 const router = Router();
 
 router
-    .get("/", getAutos)
-    .get("/:id", getAuto)
-    .post("/", validarBodyAuto, postAuto)
-    .put("/:id", validarBodyAuto, putAuto)
-    .delete("/:id", deleteAuto)
+    .get("/mostrarAutos", getAutos)
+    .get("/mostrarAuto/:id", getAuto)
+    .post("agregarAuto/", validarBodyAuto, postAuto)
+    .put("editarAuto/:id", validarBodyAuto, putAuto)
+    .delete("eliminarAuto/:id", deleteAuto)
 
 module.exports = router;

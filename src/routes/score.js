@@ -4,10 +4,10 @@ const { validarBodyScore } = require("../validators/score.js")
 const router = Router();
 
 router
-    .get("/", getScores)
-    .get("/:id", getScore)
-    .post("/", validarBodyScore, postScore)
-    .put("/:id", validarBodyScore, putScore)
-    .delete("/:id", deleteScore)
+    .get("/mostrarScores", getScores)
+    .get("/mostrarScore/:id", getScore)
+    .post("agregarScore/", validarBodyScore, postScore)
+    .put("editarScore/:id", validarBodyScore, putScore)
+    .delete("eliminarScore/:id", deleteScore)
 
 module.exports = router;

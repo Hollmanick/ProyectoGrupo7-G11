@@ -4,10 +4,10 @@ const { validarBodyMensaje } = require("../validators/mensaje.js")
 const router = Router();
 
 router
-    .get("/", getMensajes)
-    .get("/:id", getMensaje)
-    .post("/", validarBodyMensaje, postMensaje)
-    .put("/:id", validarBodyMensaje, putMensaje)
-    .delete("/:id", deleteMensaje)
+    .get("/mostrarMensajes", getMensajes)
+    .get("/mostrarMensaje/:id", getMensaje)
+    .post("agregarMensaje/", validarBodyMensaje, postMensaje)
+    .put("editarMensaje/:id", validarBodyMensaje, putMensaje)
+    .delete("eliminarMensaje/:id", deleteMensaje)
 
 module.exports = router;
