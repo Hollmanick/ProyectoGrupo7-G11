@@ -9,7 +9,7 @@ const autoSchema = new Schema({
         type: String,
         required: true
     },
-    año: {
+    ahno: {
         type: Number,
         required: true
     },
