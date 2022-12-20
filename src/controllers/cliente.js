@@ -96,12 +96,13 @@ const getClientes = async (req,res) => {
  const putCliente = async (req,res) => {
     try {
         const data  = matchedData(req);
-        console.log("req", data.params, data.body);
-        const documento = await Cliente.findByIdAndUpdate(Id,data)
+        console.log("req.body", data);
+        console.log("req.params", req.params.id);
+        const documento = await Cliente.findByIdAndUpdate(req.params.id,data)
         console.log("putCliente documento",documento)
         res.status(200).json({
             "code_response": 200,
-            "res_description": `Documento id: ${id} actualizado`,
+            "res_description": `Documento id: ${req.params.id} actualizado`,
             "data": documento
         })
     } catch (error) {
