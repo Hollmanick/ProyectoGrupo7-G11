@@ -52,8 +52,14 @@ const getCliente = async (req, res) => {
 const postCliente = async (req, res) => {
     try {
         const body = matchedData(req);
+        const url = "https://robohash.org/"
         console.log("req.body", body);
-        const newCliente = await Cliente.create(body);
+        const Cbody = {
+            ...body,
+            "img": `${url}${body.nombre}`
+        }
+        console.log("postCliente Cbody", Cbody);
+        const newCliente = await Cliente.create(Cbody);
         console.log(newCliente);
         res.status(200).json({
             "code_response": 200,

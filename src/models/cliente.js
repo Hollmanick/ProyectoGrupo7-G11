@@ -22,6 +22,10 @@ const clienteSchema = new Schema({
         type: Number,
         default: null
     },
+    img: {
+        type: String,
+        default: null
+    },
     mensaje_id: {
         type: Schema.Types.ObjectId,
         ref: "Mensaje"

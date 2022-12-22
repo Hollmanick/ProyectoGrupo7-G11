@@ -54,7 +54,13 @@ const postAlquiler = async (req, res) => {
     try {
         const body = matchedData(req);
         console.log("req.body", body);
-        const newAlquiler = await Alquiler.create(body);
+        const id = req.params.id;
+        const Cbody = {
+            ...body,
+            "auto_id": id
+        }
+        console.log("postAlquiler Cbody", Cbody);
+        const newAlquiler = await Alquiler.create(Cbody);
         console.log(newAlquiler);
         res.status(200).json({
             "code_response": 200,

@@ -9,11 +9,15 @@ const autoSchema = new Schema({
         type: String,
         required: true
     },
-    ahno: {
+    ano: {
         type: Number,
         required: true
     },
     descripcion: {
+        type: String,
+        required: true
+    },
+    img: {
         type: String,
         required: true
     },

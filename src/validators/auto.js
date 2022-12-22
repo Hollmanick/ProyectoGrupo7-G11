@@ -3,8 +3,9 @@ const { check, validationResult } = require("express-validator");
 const validarBodyAuto = [
     check("nombre").exists().notEmpty().isLength({ min: 3, max: 50 }),
     check("marca").exists().notEmpty().isLength({ min: 3, max: 50 }),
-    check("ahno").exists().notEmpty().isInt().not(),
+    check("ano").exists().notEmpty().isInt().not(),
     check("descripcion").exists().notEmpty().isLength({ min: 3, max: 50 }),
+    check("img").exists().notEmpty().isString(),
     check("categoria_id").isMongoId().optional({ checkFalsy: true }),
     check("mensaje_id").isMongoId().optional({ checkFalsy: true }),
     check("alquiler_id").isMongoId().optional({ checkFalsy: true }),
