@@ -1,34 +1,37 @@
-const { Score } = require('../models/Score.js')
-const { matchedData } = require('express-validator');
+const { Score } = require("../models/Score.js")
+const { matchedData } = require("express-validator");
 
 /**
- * Listar todos las scores de la base de datos
+ * Listar todos los documentos de la coleccion score
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getScores = async (req,res) => {
+const getScores = async (req, res) => {
     try {
         // Obtener todos los documentos existentes dentro de la coleccion score
-        const scores = await Score.find({}).lean();
+        const scores = await Score.find({}).lean().populate("alquiler_id");
+        console.log("getScores", scores);
         res.status(200).json({
             "code_response": 200,
-            "res": scores
-        }) 
+            "res_description": "documentos existentes dentro de la coleccion score",
+            "data": scores
+        })
     } catch (error) {
         console.log(error.message)
-        res.json({"res_description":error.message})
+        res.status(400).json({ "res_description": error.message })
     }
 }
+
 /**
-* Encontrar un documento de la coleccion cliente por _id 
+ * Encontrar un documento de la coleccion score por _id 
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
- const getScore = async (req,res) => {
+const getScore = async (req, res) => {
     try {
-        const { id }  = req.params;
+        const { id } = req.params;
         console.log("req.params", id);
-        const score = await Score.findById(id);
+        const score = await Score.findById(id).populate("alquiler_id");
         console.log(score);
         res.status(200).json({
             "code_response": 200,
@@ -37,59 +40,18 @@ const getScores = async (req,res) => {
         })
     } catch (error) {
         console.log(error.message)
-        res.status(400).json({"res_description":error.message})
+        res.status(400).json({ "res_description": error.message })
     }
-    
 }
 
 /**
- * Recupera el documento de la coleccion cliente cuyo id coincida y agrega un campo con los mensajes sus mensaje
+ * Crear un nuevo documento en la coleccion score
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const getAlquilerScore = async (req,res) => {
+const postScore = async (req, res) => {
     try {
-        const { id }  = req.params;
-        console.log("req.params", id);
-        const documento = await Score.aggregate(
-            [
-                {   // primera etapa
-                    $match: {
-                        _id: id // donde el campo id coincida
-                    } 
-                },
-                {   // segunda etapa
-                    $lookup: {
-                        from: 'Alquiler', // nombre del schema o coleccion foranea
-                        localField: '_id', // clave del documento local 
-                        foreingField: 'score_id', // clave del documento foraneo
-                        as: 'alquilerScore' // nombre del campo a agregar
-                    }
-                }   
-            ]
-        )
-        console.log("getAlquilerScore documento",documento)
-        console.log(documento);
-        res.status(200).json({
-            "code_response": 200,
-            "res_description": `Documento id: ${id} con sus alquiler`,
-            "data": documento
-        })
-    } catch (error) {
-        console.log(error.message)
-        res.status(200).json({"res_description":error.message})
-    }
-    
-}
-
-/**
- * Crear un nuevo documento del Schema Score
- * @param {Request} req - Objeto que contiene propiedades de la peticion
- * @param {Response} res - Objeto que contiene propiedades de la respuesta
- */
- const postScore = async (req,res) => {
-    try {
-        const body  = matchedData(req);
+        const body = matchedData(req);
         console.log("req.body", body);
         const newScore = await Score.create(body);
         console.log(newScore);
@@ -99,33 +61,8 @@ const getAlquilerScore = async (req,res) => {
         })
     } catch (error) {
         console.log(error.message)
-        res.json({"res_description":error.message})
+        res.status(200).json({ "res_description": error.message })
     }
-    
-}
-
-const putScore = async (req,res) => {
-    try {
-        const { id }  = req.params; //alejo
-        const params = req.body; //alejo
-        const body = {  //alejo
-            score:params.score, //alejo
-            descripcion:params.descripcion //alejo
-        }
-        const data  = matchedData(req);
-        console.log("req", data.params, data.body);
-        const documento = await Score.findByIdAndUpdate(id, data, { new: true});
-        console.log("putScore documento",documento)
-        res.status(200).json({
-            "code_response": 200,
-            "res_description": `Documento id: ${id} actualizado`,
-            "data": documento
-        })
-    } catch (error) {
-        console.log(error.message)
-        res.status(400).json({"res_description":error.message})
-    }
-    
 }
 
 /**
@@ -133,12 +70,36 @@ const putScore = async (req,res) => {
  * @param {Request} req - Objeto que contiene propiedades de la peticion
  * @param {Response} res - Objeto que contiene propiedades de la respuesta
  */
-const deleteScore = async (req,res) => {
+const putScore = async (req, res) => {
     try {
-        const { id }  = req.params;
+        const data = matchedData(req);
+        console.log("req", data.params, data.body);
+        const { id } = req.params;
+        console.log("req.params", id);
+        const documento = await Score.findByIdAndUpdate(id, data, { new: true });
+        console.log("putScore documento", documento)
+        res.status(200).json({
+            "code_response": 200,
+            "res_description": `Documento id: ${id} actualizado`,
+            "data": documento
+        })
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({ "res_description": error.message })
+    }
+}
+
+/**
+ * Modificar un documento de la coleccion score
+ * @param {Request} req - Objeto que contiene propiedades de la peticion
+ * @param {Response} res - Objeto que contiene propiedades de la respuesta
+ */
+const deleteScore = async (req, res) => {
+    try {
+        const { id } = req.params;
         console.log("req.params", id);
         const documento = await Score.findByIdAndDelete(id)
-        console.log("deleteScore documento",documento)
+        console.log("deleteScore documento", documento)
         console.log(documento);
         res.status(200).json({
             "code_response": 200,
@@ -147,15 +108,13 @@ const deleteScore = async (req,res) => {
         })
     } catch (error) {
         console.log(error.message)
-        res.status(200).json({"res_description":error.message})
+        res.status(200).json({ "res_description": error.message })
     }
-    
 }
 
 module.exports = {
     getScores,
     getScore,
-    getAlquilerScore,
     postScore,
     putScore,
     deleteScore

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 /**
  * Funcion para conectar a la base de datos mongoDB
@@ -8,11 +8,11 @@ const dbConnection = () => {
     mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-    }, (err,res) => {
-        if(!err){
-            console.log('DB connected successfully 👌');
-        }else{
-            console.log('DB connection failed 😢');
+    }, (err, res) => {
+        if (!err) {
+            console.log("DB connected successfully 👌");
+        } else {
+            console.log("DB connection failed 😢");
         }
     })
 }
